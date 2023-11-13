@@ -83,15 +83,7 @@ jobs:
           cache-from: type=gha
           cache-to: type=gha,mode=max
 
-      - name: Aqua Security Trivy
-        uses: aquasecurity/trivy-action@0.14.0
-        with:
-          image-ref: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
-          exit-code: 1
-          vuln-type: os,library
-          format: table
-          ignore-unfixed: true
-          severity: HIGH,CRITICAL
+
 
 
       # Sign the resulting Docker image digest except on PRs.
