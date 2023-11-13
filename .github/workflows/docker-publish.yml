@@ -37,11 +37,6 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v3
 
-      - name: Aqua Security Scanner
-        uses: aquasecurity/trivy-action@v0.18.3
-        with:
-          image-ref: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:latest
-
 
       # Install the cosign tool except on PR
       # https://github.com/sigstore/cosign-installer
