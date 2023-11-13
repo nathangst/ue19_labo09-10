@@ -31,7 +31,7 @@ jobs:
         password: ${{ secrets.GITHUB_TOKEN }}
 
     - name: Push Docker image to GitHub Packages
-      uses: docker/push@v1
+      uses: docker/build-push-action@v2
       with:
         context: .
         push: true
