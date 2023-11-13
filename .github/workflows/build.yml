@@ -30,8 +30,6 @@ jobs:
         username: ${{ github.actor }}
         password: ${{ secrets.GITHUB_TOKEN }}
 
-    - name: Clear Docker Buildx cache
-      run: docker buildx prune -a -f
 
     - name: Push Docker image to GitHub Packages
       uses: docker/build-push-action@v2
