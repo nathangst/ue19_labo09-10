@@ -13,11 +13,15 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout code
+      - name: Checkout
         uses: actions/checkout@v2
-      - name: Build an image from Dockerfile
-        run: |
-          docker build -t docker.io/my-organization/my-app:${{ github.sha }} .
+
+      - name: Build the Docker image
+        run: docker build . --file Dockerfile --tag my-organization/my-app:${{ github.sha }}
+
+      - name: Push the Docker image
+        uses: docker/build-push-action@v2
+
       - name: Run Trivy vulnerability scanner
         uses: aquasecurity/trivy-action@master
         with:
