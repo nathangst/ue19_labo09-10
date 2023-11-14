@@ -1,9 +1,22 @@
-FROM python:3.8-slim
+FROM python:3.7.3-alpine as base
 
-WORKDIR /app
-COPY . /app
+FROM base as builder
 
-RUN pip install --no-cache-dir -r requirements.txt
+RUN apk add --no-cache python3 python3-dev py-pip build-base
 
-EXPOSE 5000
-CMD ["python", "app.py"]
+RUN mkdir /install/
+WORKDIR /install
+
+COPY requirements.txt requirements.txt
+
+RUN pip install --upgrade pip && pip install -r requirements.txt
+
+FROM base
+
+WORKDIR /app/
+
+COPY --from=builder /install /usr/local
+
+COPY app.py /app/app.py
+
+CMD ["python", "/app/app.py"]
